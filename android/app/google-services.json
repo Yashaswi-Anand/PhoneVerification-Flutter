@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "178503261351",
+    "project_id": "phone-verification-in-flutter",
+    "storage_bucket": "phone-verification-in-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178503261351:android:6ad70663af30e7c82dcf82",
+        "android_client_info": {
+          "package_name": "com.yashanand.phone_verification_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178503261351-sherv6i57ohev2iiplim0960jtikgg1a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yashanand.phone_verification_flutter",
+            "certificate_hash": "9cde869ea17696eb2113ee53bbebede91742b145"
+          }
+        },
+        {
+          "client_id": "178503261351-m4i94lvupf5pd72oeg9n27vpr4tvuuia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMhtqsQU3eEP8GsErPVvbBzMblKJ3sims"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178503261351-m4i94lvupf5pd72oeg9n27vpr4tvuuia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
