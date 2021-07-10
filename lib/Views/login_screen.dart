@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:phone_verification_flutter/Views/home_screen.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
@@ -33,13 +34,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final authCredential =
-          await _auth.signInWithCredential(phoneAuthCerdential);
+      await _auth.signInWithCredential(phoneAuthCerdential);
 
       setState(() {
         loading = false;
       });
 
       if (authCredential.user != null) {
+        Fluttertoast.showToast(
+            msg: "Verified Successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.lightGreenAccent,
+            textColor: Colors.black,
+            fontSize: 16.0
+        );
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
       }
@@ -76,6 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           TextField(
             controller: phoneController,
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Phone Number",
@@ -152,6 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           PinFieldAutoFill(
             controller: otpController,
+            keyboardType: TextInputType.number,
             codeLength: 6,
             decoration: const UnderlineDecoration(
                 colorBuilder: FixedColorBuilder(Colors.blue)),
@@ -214,11 +226,11 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Container(
           child: loading
               ? Center(
-                  child: CircularProgressIndicator(),
-                )
+            child: CircularProgressIndicator(),
+          )
               : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
-                  ? getMobileFormWidget(context)
-                  : getOtpFormWidget(context),
+              ? getMobileFormWidget(context)
+              : getOtpFormWidget(context),
           padding: const EdgeInsets.all(16),
         ));
   }

@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yashanand.phone_verification_flutter">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="phone_verification_flutter"
         android:icon="@mipmap/ic_launcher">

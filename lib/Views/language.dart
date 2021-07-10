@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phone_verification_flutter/Views/home_screen.dart';
 import 'package:phone_verification_flutter/Views/login_screen.dart';
 
 class Language extends StatefulWidget {
@@ -24,7 +23,7 @@ class _LanguageState extends State<Language> {
             SizedBox(
               height: 5,
             ),
-            Text("Change the language",style: TextStyle(fontSize: 15,  color: Colors.black87),),
+            Text("Choose/Change the language",style: TextStyle(fontSize: 15,  color: Colors.black87),),
             SizedBox(
               height: 15,
             ),
@@ -50,7 +49,7 @@ class _LanguageState extends State<Language> {
                   );
                 }).toList(),
                 hint: Text(
-                  "Please select your language",
+                  "  select your language  ",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
