@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:phone_verification_flutter/Views/login_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum ProfileType { Shipper, Transporter }
 
@@ -18,26 +18,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      floatingActionButton: FloatingActionButton(
+      backgroundColor: Colors.white,
+      /*floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await _auth.signOut();
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => LoginScreen()));
         },
         child: Icon(Icons.logout),
-      ),
+      ),*/
       body: Center(
         child: Column(
           children: <Widget>[
             Spacer(),
             Text(
               "Please select your profile",
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.brown),
-            ),
+                style: GoogleFonts.oswald(
+                    fontWeight: FontWeight.w500, fontSize: 25)),
             SizedBox(
               height: 15,
             ),
@@ -66,6 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 15,
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         "Shipper",
@@ -73,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Merchant shipper may be an authorised agent.",
+                        "Merchant shipper may be an \n authorised agent.Merchant shipper",
                         style: TextStyle(fontSize: 12),
                       ),
                     ],
@@ -110,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Transporter",
@@ -118,11 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         textAlign: TextAlign.start,
                       ),
                       Text(
-                        "A mode of transport is a solution that makes",
+                        "A mode of transport is a solution \n that makes A mode of transport is",
                         style: TextStyle(fontSize: 12),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -131,15 +131,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             FlatButton(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 128, vertical: 10),
-              color: Colors.brown,
-              child: Text(
-                'Continue',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
+                  const EdgeInsets.symmetric(horizontal: 135, vertical: 10),
+              color: Colors.deepPurple,
+              child: Text('CONTINUE',
+                  style: GoogleFonts.oswald(
+                      fontWeight: FontWeight.w500, color: Colors.white)),
               onPressed: () {
                 setState(() {
                   // button action.

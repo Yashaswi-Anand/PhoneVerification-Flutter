@@ -6,12 +6,13 @@ Download this application- <a href="https://github.com/Yashaswi-Anand/PhoneVerif
 
 <h2>Screenshots</h2>
 <div>
-<img src="screenshots/pic1.jpg" width=256 style="display:inline-block"/>
-<img src="screenshots/pic2.jpg" width=256 style="display:inline-block"/>
-<img src="screenshots/pic3.jpg" width=256 style="display:inline-block"/>
+<img src="screenshots/img1.jpg" width=256 style="display:inline-block"/>
+<img src="screenshots/img2.jpg" width=256 style="display:inline-block"/>
+<img src="screenshots/img3.jpg" width=256 style="display:inline-block"/>
 </div>
 <div>
-<img src="screenshots/pic4.jpg" width=256 style="display:inline-block"/>
-<img src="screenshots/pic5.jpg" width=256 style="display:inline-block"/>
+<img src="screenshots/img4.jpg" width=256 style="display:inline-block"/>
+<img src="screenshots/img5.jpg" width=256 style="display:inline-block"/>
+<img src="screenshots/img6.jpg" width=256 style="display:inline-block"/>
 
 </div>

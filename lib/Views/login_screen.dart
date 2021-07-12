@@ -2,7 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:phone_verification_flutter/Views/home_screen.dart';
+import 'package:phone_verification_flutter/Views/language.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 enum MobileVerificationState { SHOW_MOBILE_FORM_STATE, SHOW_OTP_FORM_STATE }
@@ -25,6 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   late String verificationId;
   bool loading = false;
+  String initialCountry = 'IN';
+  PhoneNumber number = PhoneNumber(isoCode: 'IN');
 
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCerdential) async {
@@ -34,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final authCredential =
-      await _auth.signInWithCredential(phoneAuthCerdential);
+          await _auth.signInWithCredential(phoneAuthCerdential);
 
       setState(() {
         loading = false;
@@ -67,24 +73,80 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       child: Column(
         children: [
+          SizedBox(
+            height: 15,
+          ),
+          Container(
+              alignment: Alignment.topLeft,
+              child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Language(),
+                          ));
+                    });
+                  },
+                  child: Icon(Icons.clear))),
           Spacer(),
           Text(
             "Please enter your mobile number",
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 23),
+            style:
+                GoogleFonts.oswald(fontSize: 22, fontWeight: FontWeight.w700),
             textAlign: TextAlign.left,
           ),
           SizedBox(
             height: 5,
           ),
-          Text(
-            "you will receive an otp for verification...",
-            style: TextStyle(color: Colors.black38),
+          Center(
+            child: Container(
+              margin: const EdgeInsets.only(left: 5),
+              width: 200,
+              child: Text(
+                "  You'll receive a 6 digit code \n               to verify next.",
+                style: TextStyle(fontSize: 15, color: Colors.black54),
+              ),
+            ),
           ),
           SizedBox(
-            height: 16,
+            height: 35,
           ),
-          TextField(
+          Container(
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(width: 2.0, style: BorderStyle.solid),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              ),
+            ),
+            margin: EdgeInsets.only(left: 5, right: 5),
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: InternationalPhoneNumberInput(
+              spaceBetweenSelectorAndTextField: 12,
+              onInputChanged: (PhoneNumber number) {
+                print(number.phoneNumber);
+                print("Phone controller: " + phoneController.text);
+              },
+              onInputValidated: (bool value) {
+                print(value);
+              },
+              selectorConfig: SelectorConfig(
+                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                showFlags: true,
+              ),
+              selectorTextStyle: TextStyle(color: Colors.black),
+              initialValue: number,
+              textFieldController: phoneController,
+              formatInput: false,
+              autoFocus: false,
+              keyboardType:
+                  TextInputType.numberWithOptions(signed: true, decimal: true),
+              onSaved: (PhoneNumber number) {
+                print('On Saved: $number');
+              },
+            ),
+          ),
+          /*TextField(
             controller: phoneController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
@@ -92,12 +154,16 @@ class _LoginScreenState extends State<LoginScreen> {
               labelText: "Phone Number",
               //hintText: "Phone Number",
             ),
-          ),
+          ),*/
           SizedBox(
             height: 16,
           ),
           FlatButton(
-            padding: const EdgeInsets.symmetric(horizontal: 125, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 12),
+            child: Text(
+              'CONTINUE',
+              style: GoogleFonts.oswald(fontWeight: FontWeight.w500),
+            ),
             onPressed: () async {
               setState(() {
                 loading = true;
@@ -108,6 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 verificationCompleted: (phoneAuthCredential) async {
                   setState(() {
                     loading = false;
+                    //print(phoneController.text);
                   });
                   //signInWithPhoneAuthCredential(phoneAuthCerdential);
                 },
@@ -131,8 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 codeAutoRetrievalTimeout: (verificationId) async {},
               );
             },
-            child: Text('continue',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
-            color: Colors.brown,
+            color: Colors.deepPurple,
             textColor: Colors.white,
           ),
           Spacer(),
@@ -147,45 +213,104 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(
+            height: 15,
+          ),
+          Container(
+              alignment: Alignment.topLeft,
+              child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Language(),
+                          ));
+                    });
+                  },
+                  child: Icon(Icons.arrow_back))),
           Spacer(),
           Text(
-            "Verify Number",
-            style: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.brown),
+            "Verify Phone",
+            style:
+                GoogleFonts.oswald(fontSize: 30, fontWeight: FontWeight.w700),
           ),
           Text(
             "Code is send to " + phoneController.text,
             style: TextStyle(
-                fontSize: 22, fontWeight: FontWeight.bold, color: Colors.brown),
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54),
           ),
           SizedBox(
             height: 16,
           ),
-          PinFieldAutoFill(
-            controller: otpController,
-            keyboardType: TextInputType.number,
-            codeLength: 6,
-            decoration: const UnderlineDecoration(
-                colorBuilder: FixedColorBuilder(Colors.blue)),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 2),
+            child: PinCodeTextField(
+              appContext: context,
+              length: 6,
+              //obscureText: false,
+
+              animationType: AnimationType.fade,
+              pinTheme: PinTheme(
+                inactiveColor: Colors.blue,
+                inactiveFillColor: Colors.blue,
+                shape: PinCodeFieldShape.box,
+                borderRadius: BorderRadius.circular(5),
+                fieldHeight: 50,
+                fieldWidth: 40,
+                activeFillColor: Colors.white,
+              ),
+              animationDuration: Duration(milliseconds: 300),
+              enableActiveFill: true,
+              controller: otpController,
+              onCompleted: (v) {
+                print("Completed");
+              },
+              onChanged: (value) {
+                print(value);
+                setState(() {
+                  //currentText = value;
+                });
+              },
+              beforeTextPaste: (text) {
+                print("Allowing to paste $text");
+                //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                return true;
+              },
+            ),
           ),
+          /*Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: PinFieldAutoFill(
+              controller: otpController,
+              keyboardType: TextInputType.number,
+              codeLength: 6,
+              decoration: const UnderlineDecoration(
+                  colorBuilder: FixedColorBuilder(Colors.blue)),
+            ),
+          ),*/
           SizedBox(
-            height: 16,
+            height: 7,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Didn't receive the code?",
                 style: TextStyle(
-                    fontSize: 19,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: Colors.brown),
+                    color: Colors.black54),
               ),
               Text(
                 "Request Again",
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red),
+                    color: Colors.black54),
               ),
             ],
           ),
@@ -193,14 +318,17 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 16,
           ),
           FlatButton(
-            padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
             onPressed: () async {
               final phoneAuthCerdential = PhoneAuthProvider.credential(
                   verificationId: verificationId, smsCode: otpController.text);
               signInWithPhoneAuthCredential(phoneAuthCerdential);
             },
-            child:  Text('verify',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
-            color: Colors.brown,
+            child: Text(
+              'VERIFY AND CONTINUE',
+              style: GoogleFonts.oswald(fontWeight: FontWeight.w500),
+            ),
+            color: Colors.deepPurple,
             textColor: Colors.white,
           ),
           Spacer(),
@@ -221,16 +349,16 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue[50],
+        backgroundColor: Colors.white,
         key: _globalKey,
         body: Container(
           child: loading
               ? Center(
-            child: CircularProgressIndicator(),
-          )
+                  child: CircularProgressIndicator(),
+                )
               : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
-              ? getMobileFormWidget(context)
-              : getOtpFormWidget(context),
+                  ? getMobileFormWidget(context)
+                  : getOtpFormWidget(context),
           padding: const EdgeInsets.all(16),
         ));
   }

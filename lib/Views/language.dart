@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:phone_verification_flutter/Views/home_screen.dart';
 import 'package:phone_verification_flutter/Views/login_screen.dart';
 
 class Language extends StatefulWidget {
@@ -14,21 +16,39 @@ class _LanguageState extends State<Language> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           children: [
             Spacer(),
-            Text("Please select your language",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.brown),),
+            Icon(
+              Icons.image_rounded,
+              size: 140,
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Text("Please select your language",
+                style: GoogleFonts.oswald(
+                    fontSize: 25, fontWeight: FontWeight.w700)),
             SizedBox(
               height: 5,
             ),
-            Text("Choose/Change the language",style: TextStyle(fontSize: 15,  color: Colors.black87),),
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(left: 5),
+                width: 200,
+                child: Text(
+                  "  You can change the language \n               at any time",
+                  style: TextStyle(fontSize: 15, color: Colors.black38),
+                ),
+              ),
+            ),
             SizedBox(
-              height: 15,
+              height: 25,
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               decoration: ShapeDecoration(
                 shape: RoundedRectangleBorder(
                   side: BorderSide(width: 2.0, style: BorderStyle.solid),
@@ -36,10 +56,10 @@ class _LanguageState extends State<Language> {
                 ),
               ),
               child: DropdownButton<String>(
-                value: _chosenValue,
-                //elevation: 5,
-                style: TextStyle(color: Colors.black),
-                items: <String>[
+                  value: _chosenValue,
+                  //elevation: 5,
+                  style: TextStyle(color: Colors.black),
+                  items: <String>[
                   'Select',
                   'English'
                 ].map<DropdownMenuItem<String>>((String value) {
@@ -66,12 +86,17 @@ class _LanguageState extends State<Language> {
               height: 15,
             ),
             FlatButton(
-              padding: const EdgeInsets.symmetric(horizontal: 83,vertical: 10),
-              color: Colors.brown,
-              child: Text('Next',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white),),
+              padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 8),
+              color: Colors.deepPurple,
+              child: Text('NEXT',
+                  style: GoogleFonts.oswald(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                      fontSize: 20)),
               onPressed: () {
                 setState(() {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 });
               },
             ),
