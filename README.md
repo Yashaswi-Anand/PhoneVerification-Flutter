@@ -16,3 +16,8 @@ Download this application- <a href="https://github.com/Yashaswi-Anand/PhoneVerif
 <img src="screenshots/img6.jpg" width=256 style="display:inline-block"/>
 
 </div>
+
+<div>
+<img src="screenshots/img7.jpg" width=256 style="display:inline-block"/>
+
+</div>
