@@ -34,17 +34,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCerdential) async {
-    setState(() {
+    /*setState(() {
       loading = true;
-    });
+    });*/
 
     try {
       final authCredential =
           await _auth.signInWithCredential(phoneAuthCerdential);
 
-      setState(() {
+      /*setState(() {
         loading = false;
-      });
+      });*/
 
       if (authCredential.user != null) {
         Fluttertoast.showToast(
@@ -60,9 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
       }
     } on Exception catch (e) {
-      setState(() {
+      /*setState(() {
         loading = false;
-      });
+      });*/
       _globalKey.currentState!.showSnackBar(SnackBar(
         content: Text("error in login"),
       ));
@@ -160,9 +160,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           FlatButton(
             padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 12),
-            child: Text(
+            child: loading == false?
+            Text(
               'CONTINUE',
               style: GoogleFonts.oswald(fontWeight: FontWeight.w500),
+            ) : Container(
+              child: CircularProgressIndicator(color: Colors.deepPurple),
             ),
             onPressed: () async {
               setState(() {
@@ -172,6 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
               await _auth.verifyPhoneNumber(
                 phoneNumber: "+91 " + phoneController.text,
                 verificationCompleted: (phoneAuthCredential) async {
+                  otpController.text = phoneAuthCredential.smsCode!;
                   setState(() {
                     loading = false;
                     //print(phoneController.text);
@@ -187,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 codeSent: (verificationId, resendingToken) async {
                   setState(() async {
-                    loading = false;
+                    //loading = false;
                     currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
                     this.verificationId = verificationId;
                     // here add signature
@@ -198,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 codeAutoRetrievalTimeout: (verificationId) async {},
               );
             },
-            color: Colors.deepPurple,
+            color: loading == true ? Colors.white :Colors.deepPurple,
             textColor: Colors.white,
           ),
           Spacer(),
@@ -324,11 +328,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   verificationId: verificationId, smsCode: otpController.text);
               signInWithPhoneAuthCredential(phoneAuthCerdential);
             },
-            child: Text(
+            child: loading == false? Text(
               'VERIFY AND CONTINUE',
               style: GoogleFonts.oswald(fontWeight: FontWeight.w500),
+            ): Container(
+              child: CircularProgressIndicator(color: Colors.deepPurple),
             ),
-            color: Colors.deepPurple,
+            color: loading == true ? Colors.white : Colors.deepPurple,
             textColor: Colors.white,
           ),
           Spacer(),
@@ -352,11 +358,11 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white,
         key: _globalKey,
         body: Container(
-          child: loading
+          child:/* loading
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
+              :*/ currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
                   ? getMobileFormWidget(context)
                   : getOtpFormWidget(context),
           padding: const EdgeInsets.all(16),

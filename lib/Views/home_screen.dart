@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:phone_verification_flutter/Views/roadmap.dart';
 
 enum ProfileType { Shipper, Transporter }
 
@@ -19,14 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await _auth.signOut();
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
-        },
-        child: Icon(Icons.logout),
-      ),*/
       body: Center(
         child: Column(
           children: <Widget>[
@@ -139,6 +132,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 setState(() {
                   // button action.
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => RoadMap()));
                 });
               },
             ),
